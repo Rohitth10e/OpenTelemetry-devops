@@ -19,6 +19,7 @@ setup, with the containerization and orchestration work done on EC2.
 
 - `docker-images/` — service-level Docker image examples and notes
 - `docker-compose/` — the compose stack for running the services together
+- `Iaas-terraform/` — Terraform practice, backend setup, and networking study notes
 
 ## Project intent
 
@@ -48,6 +49,13 @@ Running multiple services locally as a demo stack.
 ### Terraform
 
 Defining and provisioning infrastructure in a repeatable way.
+
+#### Terraform notes in this repo
+
+- `Iaas-terraform/notes/01_notes.md` — Terraform fundamentals, workflow, and state basics
+- `Iaas-terraform/notes/02_cheatsheet_and_backends.md` — quick command reference and backend examples
+- `Iaas-terraform/notes/01_basic_networks.md` — beginner networking concepts (VPC, IGW, NAT, routes, SSH/TLS)
+- `Iaas-terraform/notes/02_advanced_networks.md` — advanced cloud/devops networking design and operations
 
 ### Kubernetes
 
