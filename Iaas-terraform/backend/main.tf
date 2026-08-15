@@ -17,10 +17,10 @@ resource "aws_s3_bucket" "s3-backend-bucket" {
 resource "aws_dynamodb_table" "tf-state-lock" {
   name           = var.state-lock-table
   billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "LockId"
+  hash_key       = "LockID"
 
   attribute {
-    name = "LockId"
+    name = "LockID"
     type = "S"
   }
 
