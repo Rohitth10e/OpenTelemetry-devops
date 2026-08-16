@@ -5,9 +5,9 @@ provider "aws" {
 resource "aws_s3_bucket" "s3-backend-bucket" {
   bucket = var.remote-s3-backend-bucket
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 
   tags = {
     Name        = "My bucket"
