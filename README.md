@@ -4,7 +4,7 @@ This repository is a **resume/profile project** demonstrating practical DevOps a
 
 ## Current Status
 
-🚀 **Active Deployment**: OpenTelemetry demo running on AWS EKS (ap-south-1 region)
+- **Active Deployment**: OpenTelemetry demo running on AWS EKS (ap-south-1 region)
 - **Infrastructure**: VPC + EKS cluster with 4x t3.micro nodes (Free Tier optimized)
 - **Load Balancing**: AWS Load Balancer Controller installed, migrating to ALB-based Ingress
 - **Services**: ~6-7 core services deployed (frontend, adservice, currencyservice, etc.)
@@ -27,6 +27,7 @@ Demonstrate real-world DevOps skills through infrastructure-as-code, containeriz
 - **Local Development**: Docker and Docker Compose for multi-service development
 
 ## Topics to explore
+CI/CD(in progress)
 
 ### AWS Infrastructure
 
@@ -66,15 +67,15 @@ Building deployment pipelines and automated workflows (planned).
 
 ## Key Accomplishments
 
-- ✅ **Terraform VPC + EKS Infrastructure**: Built reusable modules for VPC and EKS clusters with state backend security
-- ✅ **Free Tier Optimization**: Debugged and resolved capacity issues (node count, pod limits, CoreDNS replica scaling)
-- ✅ **Critical Bug Fixes**: 
+- **Terraform VPC + EKS Infrastructure**: Built reusable modules for VPC and EKS clusters with state backend security
+- **Free Tier Optimization**: Debugged and resolved capacity issues (node count, pod limits, CoreDNS replica scaling)
+- **Critical Bug Fixes**: 
   - Fixed Terraform syntax typo (`route = {}` → `route {}`)
   - Resolved missing NAT Gateway causing `NodeCreationFailure`
   - Handled orphaned LoadBalancer cleanup after `terraform destroy` (K8s-provisioned resources lifecycle)
-- ✅ **IRSA Setup**: Configured IAM Roles for Service Accounts for secure pod-to-AWS-API authentication
-- ✅ **AWS Load Balancer Controller**: Installed via Helm, configured for ALB-based Ingress provisioning
-- ✅ **OpenTelemetry Core Services**: Running adservice, currencyservice, emailservice, frontend, and supporting services
+- **IRSA Setup**: Configured IAM Roles for Service Accounts for secure pod-to-AWS-API authentication
+- **AWS Load Balancer Controller**: Installed via Helm, configured for ALB-based Ingress provisioning
+- **OpenTelemetry Core Services**: Running adservice, currencyservice, emailservice, frontend, and supporting services
 
 ## Lessons Learned
 
