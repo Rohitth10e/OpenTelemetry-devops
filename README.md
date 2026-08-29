@@ -322,7 +322,7 @@ terraform destroy
 
 ---
 
-## Key Learnings for Interview
+## Key Learnings
 
 1. **Problem Solving**: Traced pod capacity issue via `kubectl describe` and K8s documentation
 2. **Infrastructure Knowledge**: Understand VPC layering, NAT, routing, security groups
