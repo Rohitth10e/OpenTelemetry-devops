@@ -1,71 +1,85 @@
 # OpenTelemetry DevOps Project
 
-This repository is a **resume/profile project** built around OpenTelemetry.
-I cloned the OpenTelemetry application onto an AWS EC2 instance and wrote the Dockerfiles and
-Docker Compose setup there to demonstrate practical DevOps skills across core platform and
-infrastructure concepts such as:
+This repository is a **resume/profile project** demonstrating practical DevOps and cloud infrastructure skills through deploying the OpenTelemetry demo application on AWS EKS (Elastic Kubernetes Service).
 
-- AWS
-- Docker
-- Docker Compose
-- Terraform
-- Kubernetes
-- CI/CD
+## Current Status
 
-The goal of the project is to show how these tools work together in a real-world application
-setup, with the containerization and orchestration work done on EC2.
+🚀 **Active Deployment**: OpenTelemetry demo running on AWS EKS (ap-south-1 region)
+- **Infrastructure**: VPC + EKS cluster with 4x t3.micro nodes (Free Tier optimized)
+- **Load Balancing**: AWS Load Balancer Controller installed, migrating to ALB-based Ingress
+- **Services**: ~6-7 core services deployed (frontend, adservice, currencyservice, etc.)
 
 ## What this repo contains
 
-- `docker-images/` — service-level Docker image examples and notes
-- `docker-compose/` — the compose stack for running the services together
-- `Iaas-terraform/` — Terraform practice, backend setup, and networking study notes
+- `docker-images/` — service-level Docker image examples and implementation notes
+- `docker-compose/` — local demo stack for multi-container development
+- `Iaas-terraform/` — Terraform IaC for AWS infrastructure + detailed learning notes
+  - `Iaas-terraform/notes/PROGRESS.md` — detailed progress log with bug fixes and lessons learned
 
 ## Project intent
 
-This project is designed to help me:
+Demonstrate real-world DevOps skills through infrastructure-as-code, containerization, and cloud-native deployment:
 
-- containerize services
-- orchestrate multi-container applications
-- provision infrastructure as code
-- deploy workloads to Kubernetes
-- connect build, test, and release workflows with CI/CD
-- understand how OpenTelemetry fits into modern DevOps systems
+- **Infrastructure as Code (Terraform)**: VPC, EKS, networking, and state management
+- **Container Orchestration (Kubernetes)**: Service deployment, scaling, networking, and load balancing
+- **Cloud Services (AWS)**: EC2, EKS, VPC, ALB, S3, DynamoDB, IAM roles
+- **DevOps Practices**: Free Tier optimization, troubleshooting, and incident response
+- **Local Development**: Docker and Docker Compose for multi-service development
 
 ## Topics to explore
 
-### AWS
+### AWS Infrastructure
 
-Using cloud services for compute, storage, networking, and deployment.
+- **VPC & Networking**: Custom VPC with public/private subnets, Internet Gateway, NAT Gateway, route tables
+- **EKS (Elastic Kubernetes Service)**: Managed Kubernetes cluster with auto-scaling node groups
+- **IAM & IRSA**: Identity and Access Management, Roles for Service Accounts for pod-level AWS API access
+- **Load Balancing**: AWS Load Balancer Controller for Ingress-based ALB provisioning
+- **State Management**: S3 backend with DynamoDB locking for Terraform state
 
-### Docker
+### Terraform Infrastructure as Code
 
-Building container images for application services.
+Defined in `Iaas-terraform/`:
 
-### Docker Compose
+- **Modules**: Reusable VPC and EKS configurations
+- **Backend**: S3 + DynamoDB for remote state and concurrent access safety
+- **Notes & Learning**:
+  - `01_notes.md` — Terraform fundamentals, workflow, and state basics
+  - `02_cheatsheet_and_backends.md` — quick command reference and backend examples
+  - `01_basic_networks.md` — beginner networking concepts (VPC, IGW, NAT, routes, SSH/TLS)
+  - `02_advanced_networks.md` — advanced cloud/devops networking design and operations
+  - `PROGRESS.md` — detailed bug fixes, lessons learned, and deployment status
 
-Running multiple services locally as a demo stack.
+### Docker & Containerization
 
-### Terraform
+Building and managing container images for all OpenTelemetry demo services.
 
-Defining and provisioning infrastructure in a repeatable way.
+### Kubernetes Deployment
 
-#### Terraform notes in this repo
+- **Services**: Deploying multi-tier applications on EKS
+- **Resource Management**: Optimizing for Free Tier constraints (t3.micro nodes with ~530Mi allocatable memory)
+- **Service Types**: ClusterIP, NodePort, LoadBalancer, ExternalName
+- **Networking**: Service discovery, Ingress, and ALB integration
 
-- `Iaas-terraform/notes/01_notes.md` — Terraform fundamentals, workflow, and state basics
-- `Iaas-terraform/notes/02_cheatsheet_and_backends.md` — quick command reference and backend examples
-- `Iaas-terraform/notes/01_basic_networks.md` — beginner networking concepts (VPC, IGW, NAT, routes, SSH/TLS)
-- `Iaas-terraform/notes/02_advanced_networks.md` — advanced cloud/devops networking design and operations
+### CI/CD & Automation
 
-### Kubernetes
+Building deployment pipelines and automated workflows (planned).
 
-Deploying and managing containerized workloads at scale.
+## Key Accomplishments
 
-### CI/CD
+- ✅ **Terraform VPC + EKS Infrastructure**: Built reusable modules for VPC and EKS clusters with state backend security
+- ✅ **Free Tier Optimization**: Debugged and resolved capacity issues (node count, pod limits, CoreDNS replica scaling)
+- ✅ **Critical Bug Fixes**: 
+  - Fixed Terraform syntax typo (`route = {}` → `route {}`)
+  - Resolved missing NAT Gateway causing `NodeCreationFailure`
+  - Handled orphaned LoadBalancer cleanup after `terraform destroy` (K8s-provisioned resources lifecycle)
+- ✅ **IRSA Setup**: Configured IAM Roles for Service Accounts for secure pod-to-AWS-API authentication
+- ✅ **AWS Load Balancer Controller**: Installed via Helm, configured for ALB-based Ingress provisioning
+- ✅ **OpenTelemetry Core Services**: Running adservice, currencyservice, emailservice, frontend, and supporting services
 
-Automating build, test, and deployment workflows.
+## Lessons Learned
 
-## Notes
-
-This repository is structured as a portfolio project, so some folders may contain implementation
-notes and work-in-progress material from the EC2-based OpenTelemetry setup.
+- Terraform state backend must use `LockID` key (case-sensitive) for DynamoDB locks
+- EKS node upgrades are limited to one minor version at a time
+- K8s cloud-provisioned resources (LoadBalancer Services, PVCs) must be deleted before `terraform destroy`
+- Free Tier constraints require careful resource planning: 2 usable pod slots per t3.micro node after daemonsets
+- ServiceAccount IRSA annotations and OIDC provider setup are critical for pod IAM access
